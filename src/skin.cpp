@@ -1,6 +1,5 @@
 #include <QFile>
 #include <QUrl>
-#include <QDebug>
 
 #include "skin.h"
 

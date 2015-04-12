@@ -1,10 +1,7 @@
-#ifdef QT_QML_DEBUG
-#include <QtQuick>
-#endif
-
-#include <sailfishapp.h>
-#include <QScopedPointer>
 #include <QQuickView>
+#include <QScopedPointer>
+#include <QtQuick>
+#include <sailfishapp.h>
 
 #include "skin.h"
 
