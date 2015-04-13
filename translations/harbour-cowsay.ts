@@ -38,6 +38,14 @@
         <source>Switch to Cowsay</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Copy text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save image</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SecondPage</name>

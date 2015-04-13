@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Qt.labs.folderlistmodel 2.1
+import harbour.cowsay.Exporter 1.0
 import harbour.cowsay.Skin 1.0
 
 Page
@@ -53,6 +54,10 @@ Page
         eyes: eyesComboBox.value
         thinking: page.thinking
     }
+    Exporter
+    {
+        id: exporter
+    }
 
     SilicaFlickable
     {
@@ -64,6 +69,22 @@ Page
             MenuItem
             {
                 text: qsTr("About") + " " + header.title
+            }
+            MenuItem
+            {
+                text: qsTr("Copy text")
+                onClicked:
+                {
+                    Clipboard.text = skin.output;
+                }
+            }
+            MenuItem
+            {
+                text: qsTr("Save image")
+                onClicked:
+                {
+                    exporter.saveTextToImage(skin.output);
+                }
             }
             MenuItem
             {
@@ -80,8 +101,8 @@ Page
         {
             id: contentItem
 
-            width: landscapeMode ? app.height : app.width
-            height: landscapeMode ? app.width : app.height
+            width: landscapeMode ? Screen.height : Screen.width
+            height: landscapeMode ? Screen.width : Screen.height
 
             PageHeader
             {
@@ -171,7 +192,7 @@ Page
 
                     anchors { fill: parent }
                     color: Theme.highlightColor
-                    font { family: "Courier"; pixelSize: Theme.fontSizeTiny }
+                    font { family: "Monospace"; pixelSize: Theme.fontSizeTiny }
                     text: skin.output
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignBottom
