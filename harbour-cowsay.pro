@@ -77,7 +77,11 @@ OTHER_FILES += qml/harbour-cowsay.qml \
     qml/cows/vader-koala.cow \
     qml/cows/vader.cow \
     qml/cows/www.cow \
-    qml/pages/MainPage.qml
+    qml/pages/MainPage.qml \
+    qml/pages/AboutPage.qml \
+    qml/globals.js \
+    qml/storage.js \
+    qml/components/Settings.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

@@ -4,6 +4,8 @@ import Qt.labs.folderlistmodel 2.1
 import harbour.cowsay.Exporter 1.0
 import harbour.cowsay.Skin 1.0
 
+import "../globals.js" as Globals
+
 Page
 {
     id: page
@@ -12,21 +14,21 @@ Page
 
     property string folderDirectory: "../cows/"
     property string extension: ".cow"
-    property bool thinking: false
-
     property bool landscapeMode: orientation === Orientation.Landscape || orientation === Orientation.LandscapeInverted
+    property var skinNames: []
+    property bool skinNamesApplied: skinNames.length > 0 && skinRepeater.count > 0
 
     // -----------------------------------------------------------------------
 
-    function formatFilename(filename)
+    function init()
     {
-        var extensionStartPos = filename.lastIndexOf(extension);
-        return filename.substring(0, extensionStartPos);
+        eyesComboBox.init();
+        tongueComboBox.init();
     }
 
     // -----------------------------------------------------------------------
 
-    function restoreFilename(str)
+    function resolveSkinFilename(str)
     {
          return Qt.resolvedUrl(folderDirectory + str + extension);
     }
@@ -34,6 +36,10 @@ Page
     // -----------------------------------------------------------------------
 
     allowedOrientations: Orientation.All
+    onSkinNamesAppliedChanged:
+    {
+        skinComboBox.init();
+    }
 
     // -----------------------------------------------------------------------
 
@@ -43,16 +49,29 @@ Page
 
         folder: folderDirectory
         nameFilters: ["*" + extension]
+        showDirs: false
+        onCountChanged:
+        {
+            var newSkinNames = [];
+            for (var idx = 0; idx < count; ++idx)
+            {
+                var filename = get(idx, "fileName");
+                var extensionStartPos = filename.lastIndexOf(extension);
+                newSkinNames.push(filename.substring(0, extensionStartPos));
+            }
+            skinNames = newSkinNames;
+        }
     }
 
     Skin
     {
         id: skin
 
-        filename: restoreFilename(fileComboBox.value)
-        tongue: tongueComboBox.tongue
-        eyes: eyesComboBox.value
-        thinking: page.thinking
+        filename: resolveSkinFilename(settings.skin)
+        tongue: settings.tongue
+        eyes: settings.eyes
+        thinking: settings.thinking
+        text: settings.text
     }
     Exporter
     {
@@ -88,11 +107,11 @@ Page
             }
             MenuItem
             {
-                text: (!page.thinking || !enabled) ? qsTr("Switch to Cowthink") : qsTr("Switch to Cowsay")
+                text: (!settings.thinking || !enabled) ? qsTr("Switch to Cowthink") : qsTr("Switch to Cowsay")
                 enabled: skin.supportsThinking
                 onClicked:
                 {
-                    page.thinking = !page.thinking;
+                    settings.thinking = !settings.thinking;
                 }
             }
         }
@@ -109,7 +128,7 @@ Page
                 id: header
 
                 anchors { left: parent.left; right: parent.right; top: parent.top }
-                title: page.thinking ? "Cowthink" : "Cowsay"
+                title: settings.thinking ? "Cowthink" : "Cowsay"
             }
 
             Flow
@@ -120,7 +139,19 @@ Page
 
                 ComboBox
                 {
-                    id: fileComboBox
+                    id: skinComboBox
+
+                    function init()
+                    {
+                        for (var idx = 0; idx < skinNames.length; ++idx)
+                        {
+                            if (skinNames[idx] === settings.skin)
+                            {
+                                currentItem = skinRepeater.itemAt(idx);
+                                break;
+                            }
+                        }
+                    }
 
                     width: landscapeMode ? parent.width / 2 : parent.width
                     label: "Skin"
@@ -128,34 +159,59 @@ Page
                     {
                         Repeater
                         {
-                            model: folderListModel
+                            id: skinRepeater
 
-                            MenuItem { text: formatFilename(fileName) }
+                            model: skinNames
+
+                            MenuItem { text: modelData }
                         }
+                    }
+                    onCurrentIndexChanged:
+                    {
+                        settings.skin = value;
                     }
                 }
                 ComboBox
                 {
                     id: eyesComboBox
 
+                    function init()
+                    {
+                        var idx = Globals.EYES.indexOf(settings.eyes);
+                        if (idx !== -1)
+                            currentIndex = idx;
+                    }
+
                     width: landscapeMode ? parent.width / 4 : parent.width / 2
                     enabled: skin.supportsEyes
                     label: "Eyes"
                     menu: ContextMenu
                     {
-                        MenuItem { text: "oo" }
-                        MenuItem { text: "--" }
-                        MenuItem { text: ".." }
-                        MenuItem { text: "XX" }
-                        MenuItem { text: "$$" }
-                        MenuItem { text: "@@" }
+                        Repeater
+                        {
+                            model: Globals.EYES
+
+                            MenuItem
+                            {
+                                text: modelData
+                            }
+                        }
+                    }
+                    onCurrentIndexChanged:
+                    {
+                        settings.eyes = value;
                     }
                 }
                 ComboBox
                 {
                     id: tongueComboBox
 
-                    property string tongue: "  "
+                    function init()
+                    {
+                        var idx = Globals.TONGUES.indexOf(settings.tongue);
+                        if (idx !== -1)
+                            currentIndex = idx;
+                    }
 
                     width: landscapeMode ? parent.width / 4 : parent.width / 2
                     enabled: skin.supportsTongue
@@ -168,12 +224,7 @@ Page
                     }
                     onCurrentIndexChanged:
                     {
-                        switch (currentIndex)
-                        {
-                            case 0: tongue = "  "; break;
-                            case 1: tongue = "U "; break;
-                            case 2: tongue = " U"; break;
-                        }
+                        settings.tongue = Globals.TONGUES[currentIndex];
                     }
                 }
             }
@@ -184,7 +235,6 @@ Page
                 contentWidth: Math.max(width, text.contentWidth)
                 contentHeight: Math.max(height, text.contentHeight)
                 clip: true
-                //boundsBehavior: Flickable.StopAtBounds
 
                 Text
                 {
@@ -214,9 +264,10 @@ Page
                 anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
                 placeholderText: qsTr("Type here")
                 EnterKey.enabled: false
+                text: settings.text
                 onTextChanged:
                 {
-                    skin.text = textField.text;
+                    settings.text = textField.text;
                 }
             }
         }
