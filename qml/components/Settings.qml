@@ -6,6 +6,8 @@ import "../globals.js" as Globals
 
 QtObject
 {
+    property bool enteringText: false
+
     property bool thinking: false;              property string thinkingKey: "thinking"
     property string skin: "default";            property string skinKey: "skin"
     property string tongue: Globals.TONGUES[0]; property string tongueKey: "tongue"
@@ -52,6 +54,11 @@ QtObject
     }
 
     // -----------------------------------------------------------------------
+    onEnteringTextChanged:
+    {
+        if (!enteringText)
+            Storage.setValue(textKey, text);
+    }
 
     onThinkingChanged:
     {
@@ -71,6 +78,8 @@ QtObject
     }
     onTextChanged:
     {
-        Storage.setValue(textKey, text);
+        // value keeps changing as long as user is entering text. store when user is finished
+        if (!enteringText)
+            Storage.setValue(textKey, text);
     }
 }

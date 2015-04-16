@@ -35,6 +35,8 @@ ApplicationWindow
     Settings
     {
         id: settings
+
+        enteringText: mainPage.enteringText
     }
     CoverPage
     {

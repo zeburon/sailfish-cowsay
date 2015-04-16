@@ -17,6 +17,7 @@ Page
     property bool landscapeMode: orientation === Orientation.Landscape || orientation === Orientation.LandscapeInverted
     property var skinNames: []
     property bool skinNamesApplied: skinNames.length > 0 && skinRepeater.count > 0
+    property bool enteringText: textField.focus
 
     // -----------------------------------------------------------------------
 
@@ -263,7 +264,9 @@ Page
 
                 anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
                 placeholderText: qsTr("Type here")
-                EnterKey.enabled: false
+                EnterKey.enabled: true
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: focus = false
                 text: settings.text
                 onTextChanged:
                 {
