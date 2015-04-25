@@ -46,4 +46,8 @@ ApplicationWindow
     {
         id: mainPage
     }
+    AboutPage
+    {
+        id: aboutPage
+    }
 }

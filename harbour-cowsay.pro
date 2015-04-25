@@ -81,7 +81,8 @@ OTHER_FILES += qml/harbour-cowsay.qml \
     qml/pages/AboutPage.qml \
     qml/globals.js \
     qml/storage.js \
-    qml/components/Settings.qml
+    qml/components/Settings.qml \
+    qml/gfx/about.png
 
 # to disable building translations every time, comment out the
 # following CONFIG line

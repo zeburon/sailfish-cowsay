@@ -89,6 +89,10 @@ Page
             MenuItem
             {
                 text: qsTr("About") + " " + header.title
+                onClicked:
+                {
+                    pageStack.push(aboutPage);
+                }
             }
             MenuItem
             {
@@ -108,7 +112,7 @@ Page
             }
             MenuItem
             {
-                text: (!settings.thinking || !enabled) ? qsTr("Switch to Cowthink") : qsTr("Switch to Cowsay")
+                text: qsTr("Switch to") + " " + ((!settings.thinking || !enabled) ?  qsTr("Cowthink") : qsTr("Cowsay"))
                 enabled: skin.supportsThinking
                 onClicked:
                 {
@@ -129,7 +133,7 @@ Page
                 id: header
 
                 anchors { left: parent.left; right: parent.right; top: parent.top }
-                title: settings.thinking ? "Cowthink" : "Cowsay"
+                title: settings.thinking ? qsTr("Cowthink") : qsTr("Cowsay")
             }
 
             Flow
@@ -263,7 +267,7 @@ Page
                 id: textField
 
                 anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
-                placeholderText: qsTr("Type here")
+                placeholderText: qsTr("Enter text...")
                 EnterKey.enabled: true
                 EnterKey.iconSource: "image://theme/icon-m-enter-close"
                 EnterKey.onClicked: focus = false
