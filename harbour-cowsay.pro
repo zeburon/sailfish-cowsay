@@ -82,7 +82,9 @@ OTHER_FILES += qml/harbour-cowsay.qml \
     qml/globals.js \
     qml/storage.js \
     qml/components/Settings.qml \
-    qml/gfx/about.png
+    qml/gfx/about.png \
+    qml/cows/.cover_cow.cow \
+    qml/cows/.cover_sheep.cow
 
 # to disable building translations every time, comment out the
 # following CONFIG line

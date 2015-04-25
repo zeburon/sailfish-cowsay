@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import Qt.labs.folderlistmodel 2.1
 import harbour.cowsay.Exporter 1.0
 import harbour.cowsay.Skin 1.0
 
@@ -12,10 +11,7 @@ Page
 
     // -----------------------------------------------------------------------
 
-    property string folderDirectory: "../cows/"
-    property string extension: ".cow"
     property bool landscapeMode: orientation === Orientation.Landscape || orientation === Orientation.LandscapeInverted
-    property var skinNames: []
     property bool skinNamesApplied: skinNames.length > 0 && skinRepeater.count > 0
     property bool enteringText: textField.focus
 
@@ -29,13 +25,6 @@ Page
 
     // -----------------------------------------------------------------------
 
-    function resolveSkinFilename(str)
-    {
-         return Qt.resolvedUrl(folderDirectory + str + extension);
-    }
-
-    // -----------------------------------------------------------------------
-
     allowedOrientations: Orientation.All
     onSkinNamesAppliedChanged:
     {
@@ -44,31 +33,11 @@ Page
 
     // -----------------------------------------------------------------------
 
-    FolderListModel
-    {
-        id: folderListModel
-
-        folder: folderDirectory
-        nameFilters: ["*" + extension]
-        showDirs: false
-        onCountChanged:
-        {
-            var newSkinNames = [];
-            for (var idx = 0; idx < count; ++idx)
-            {
-                var filename = get(idx, "fileName");
-                var extensionStartPos = filename.lastIndexOf(extension);
-                newSkinNames.push(filename.substring(0, extensionStartPos));
-            }
-            skinNames = newSkinNames;
-        }
-    }
-
     Skin
     {
         id: skin
 
-        filename: resolveSkinFilename(settings.skin)
+        filename: app.resolveSkinFilename(settings.skin)
         tongue: settings.tongue
         eyes: settings.eyes
         thinking: settings.thinking
@@ -249,8 +218,8 @@ Page
                     color: Theme.highlightColor
                     font { family: "Monospace"; pixelSize: Theme.fontSizeTiny }
                     text: skin.output
-                    horizontalAlignment: Qt.AlignLeft
-                    verticalAlignment: Qt.AlignBottom
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignBottom
                 }
                 HorizontalScrollDecorator
                 {

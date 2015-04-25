@@ -42,13 +42,6 @@ Artistic License or the GNU General Public License</source>
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>Moo!</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>MainPage</name>
     <message>
         <source>none</source>

@@ -49,7 +49,7 @@ Artistic License or the GNU General Public License</source>
     </message>
     <message>
         <source>Moo!</source>
-        <translation>Muh!</translation>
+        <translation type="vanished">Muh!</translation>
     </message>
 </context>
 <context>

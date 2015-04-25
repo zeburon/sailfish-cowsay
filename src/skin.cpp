@@ -231,6 +231,7 @@ void Skin::readFromFile()
             break;
 
         line.replace("\\\\", "\\");
+        line.replace("\\@", "@");
         m_skin_lines.append(line);
     }
 
