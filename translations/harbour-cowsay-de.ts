@@ -117,6 +117,14 @@ Artistic License or the GNU General Public License</source>
         <source>Switch to</source>
         <translation>Wechseln zu</translation>
     </message>
+    <message>
+        <source>Image saved to</source>
+        <translation>Bild gespeichert unter</translation>
+    </message>
+    <message>
+        <source>Text copied to clipboard</source>
+        <translation>Text in die Zwischenablage kopiert</translation>
+    </message>
 </context>
 <context>
     <name>SecondPage</name>

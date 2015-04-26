@@ -31,7 +31,7 @@ Exporter::~Exporter()
 
 // -----------------------------------------------------------------------
 
-void Exporter::saveTextToImage(const QString &text)
+QString Exporter::saveTextToImage(const QString &text)
 {
     QString filename = QString("%1/cowsay-%2.png")
                 .arg(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation))
@@ -50,4 +50,5 @@ void Exporter::saveTextToImage(const QString &text)
     m_painter.end();
 
     image.save(filename);
+    return filename;
 }

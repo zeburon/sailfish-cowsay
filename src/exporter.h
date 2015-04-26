@@ -15,7 +15,7 @@ public:
     explicit Exporter(QObject *parent = 0);
     virtual ~Exporter();
 
-    Q_INVOKABLE void saveTextToImage(const QString &text);
+    Q_INVOKABLE QString saveTextToImage(const QString &text);
 
 private:
     static const QColor IMAGE_BACKGROUND_COLOR;

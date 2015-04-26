@@ -83,5 +83,13 @@ Artistic License or the GNU General Public License</source>
         <source>Switch to</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Image saved to</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Text copied to clipboard</source>
+        <translation></translation>
+    </message>
 </context>
 </TS>

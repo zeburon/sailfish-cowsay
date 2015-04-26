@@ -14,6 +14,7 @@ Page
     property bool landscapeMode: orientation === Orientation.Landscape || orientation === Orientation.LandscapeInverted
     property bool skinNamesApplied: skinNames.length > 0 && skinRepeater.count > 0
     property bool enteringText: textField.focus
+    property string lastImageFilename
 
     // -----------------------------------------------------------------------
 
@@ -69,6 +70,7 @@ Page
                 onClicked:
                 {
                     Clipboard.text = skin.output;
+                    clipboardTimer.start();
                 }
             }
             MenuItem
@@ -76,7 +78,8 @@ Page
                 text: qsTr("Save image")
                 onClicked:
                 {
-                    exporter.saveTextToImage(skin.output);
+                    lastImageFilename = exporter.saveTextToImage(skin.output);
+                    imageLocationTimer.start();
                 }
             }
             MenuItem
@@ -209,6 +212,7 @@ Page
                 contentWidth: Math.max(width, text.contentWidth)
                 contentHeight: Math.max(height, text.contentHeight)
                 clip: true
+                opacity: Math.max(0.15, 1.0 - imageLocationText.opacity * 0.85 - clipboardText.opacity * 0.85)
 
                 Text
                 {
@@ -229,6 +233,64 @@ Page
                 {
                     flickable: parent
                 }
+            }
+
+            Text
+            {
+                id: imageLocationText
+
+                anchors { left: parent.left; right: parent.right; top: settingsFlow.bottom; bottom: textField.top }
+                opacity: imageLocationTimer.running ? 1.0 : 0.0
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                textFormat: Text.RichText
+                font { family: Theme.fontFamily; pixelSize: Theme.fontSizeSmall }
+                color: Theme.primaryColor
+                text: "<style>a:link { color: " + Theme.highlightColor + "; }</style><br/>" +
+                      qsTr("Image saved to") + " <a href=\"" + lastImageFilename + "\">" + lastImageFilename + "</a>";
+                onLinkActivated:
+                {
+                    Qt.openUrlExternally(link);
+                }
+
+                Behavior on opacity
+                {
+                    NumberAnimation { easing.type: Easing.InOutQuart; duration: 500 }
+                }
+            }
+            Timer
+            {
+                id: imageLocationTimer
+
+                repeat: false
+                interval: 3000
+            }
+
+            Text
+            {
+                id: clipboardText
+
+                anchors { left: parent.left; right: parent.right; top: settingsFlow.bottom; bottom: textField.top }
+                opacity: clipboardTimer.running ? 1.0 : 0.0
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font { family: Theme.fontFamily; pixelSize: Theme.fontSizeSmall }
+                color: Theme.primaryColor
+                text: qsTr("Text copied to clipboard")
+
+                Behavior on opacity
+                {
+                    NumberAnimation { easing.type: Easing.InOutQuart; duration: 500 }
+                }
+            }
+            Timer
+            {
+                id: clipboardTimer
+
+                repeat: false
+                interval: 2000
             }
 
             TextField
