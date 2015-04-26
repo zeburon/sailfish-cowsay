@@ -8,11 +8,12 @@ QtObject
 {
     property bool enteringText: false
 
-    property bool thinking: false;              property string thinkingKey: "thinking"
-    property string skin: "default";            property string skinKey: "skin"
-    property string tongue: Globals.TONGUES[0]; property string tongueKey: "tongue"
-    property string eyes: Globals.EYES[0];      property string eyesKey: "eyes"
-    property string text: "";                   property string textKey: "text"
+    property bool thinking: false;                          property string thinkingKey: "thinking"
+    property string skin: "default";                        property string skinKey: "skin"
+    property string tongue: Globals.TONGUES[0];             property string tongueKey: "tongue"
+    property string eyes: Globals.EYES[0];                  property string eyesKey: "eyes"
+    property string text: "";                               property string textKey: "text"
+    property string coverSkin: Globals.COVER_SKIN_NAMES[0]; property string coverSkinKey: "coverSkin"
 
     // -----------------------------------------------------------------------
 
@@ -44,6 +45,11 @@ QtObject
         var storedText = Storage.getValue(textKey);
         if (storedText)
             text = storedText;
+
+        // load cover skin
+        var storedCoverSkin = Storage.getValue(coverSkinKey);
+        if (storedCoverSkin)
+            coverSkin = storedCoverSkin;
     }
 
     // -----------------------------------------------------------------------
@@ -81,5 +87,9 @@ QtObject
         // value keeps changing as long as user is entering text. store when user is finished
         if (!enteringText)
             Storage.setValue(textKey, text);
+    }
+    onCoverSkinChanged:
+    {
+        Storage.setValue(coverSkinKey, coverSkin);
     }
 }

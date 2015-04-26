@@ -2,6 +2,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import harbour.cowsay.Skin 1.0
 
+import "../globals.js" as Globals
+
 CoverBackground
 {
     id: cover
@@ -9,23 +11,32 @@ CoverBackground
     // -----------------------------------------------------------------------
 
     property bool coverActive: status === Cover.Active
-    property var skinNames: [".cover_cow", ".cover_sheep"]
-    property var eyesAwake: ["oo", "oO", "Oo"]
-    property var eyesSleeping: ["--"]
+    property var eyeStrings: ["oo", "oO", "Oo", "--"]
+    property var eyeIntervals: [4000, 2000, 2000, 8000]
 
-    property string activeSkinName: skinNames[0]
     property bool moveIn: false
+    property int moveInStepCount: 14
     property bool moveOut: false
-    property int transitionStep
-    property int transitionStepCount: 20
+    property int moveOutStepCount: -20
+    property int currentStep
 
     // -----------------------------------------------------------------------
 
     function switchToNextSkin()
     {
-        var currentSkinIndex = skinNames.indexOf(activeSkinName);
-        var nextSkinIndex = (currentSkinIndex + 1) % skinNames.length;
-        activeSkinName = skinNames[nextSkinIndex];
+        var currentSkinIndex = Globals.COVER_SKIN_NAMES.indexOf(settings.coverSkin);
+        var nextSkinIndex = (currentSkinIndex + 1) % Globals.COVER_SKIN_NAMES.length;
+        settings.coverSkin = Globals.COVER_SKIN_NAMES[nextSkinIndex];
+        skin.eyes = eyeStrings[0];
+    }
+
+    // -----------------------------------------------------------------------
+
+    function updateTimeLabel()
+    {
+        var currentTime = new Date();
+        timeLabel.text = Qt.formatTime(currentTime, Globals.COVER_TIME_FORMAT);
+        updateTimeTimer.start(1000 * (60 - currentTime.getSeconds()));
     }
 
     // -----------------------------------------------------------------------
@@ -34,28 +45,50 @@ CoverBackground
     {
         if (!coverActive)
         {
-            updateTimer.stop();
+            updateSkinTimer.stop();
+            updateTimeTimer.stop();
         }
         else
         {
-            updateTimer.start();
+            updateSkinTimer.start();
+            updateTimeLabel();
         }
     }
 
     // -----------------------------------------------------------------------
 
+    Label
+    {
+        id: timeLabel
+
+        anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: Theme.paddingMedium }
+        color: Theme.secondaryHighlightColor
+        font { family: "Monospace"; pixelSize: Theme.fontSizeExtraLarge }
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
+    Timer
+    {
+        id: updateTimeTimer
+
+        repeat: false
+        onTriggered:
+        {
+            updateTimeLabel();
+        }
+    }
     Skin
     {
         id: skin
 
-        filename: app.resolveSkinFilename(activeSkinName)
+        filename: app.resolveSkinFilename(settings.coverSkin)
         tongue: "  "
     }
     Label
     {
-        id: label
+        id: skinLabel
 
-        anchors { left: parent.left; leftMargin: (transitionStep + 1) * 20; verticalCenter: parent.verticalCenter }
+        anchors { left: parent.left; leftMargin: (currentStep + 1) * 20; verticalCenter: parent.verticalCenter }
         text: skin.output
         color: Theme.highlightColor
         font { family: "Monospace"; pixelSize: Theme.fontSizeMedium }
@@ -64,36 +97,40 @@ CoverBackground
     }
     Timer
     {
-        id: updateTimer
+        id: updateSkinTimer
 
-        interval: (moveIn || moveOut) ? 100 : 2000
         repeat: false
         onTriggered:
         {
+            // move out animation
             if (moveOut)
             {
-                --transitionStep;
-                if (transitionStep <= -transitionStepCount)
+                --currentStep;
+                if (currentStep <= moveOutStepCount)
                 {
                     moveOut = false;
                     moveIn = true;
-                    transitionStep = transitionStepCount;
+                    currentStep = moveInStepCount;
                     switchToNextSkin();
                 }
             }
+            // move in animation
             else if (moveIn)
             {
-                --transitionStep;
-                if (transitionStep == 0)
+                --currentStep;
+                if (currentStep == 0)
                 {
                     moveOut = moveIn = false;
                 }
             }
+            // eye animation
             else
             {
-                skin.eyes = eyesAwake[Math.floor(Math.random() * eyesAwake.length)];
+                var eyeIndex = Math.floor(Math.random() * eyeStrings.length);
+                skin.eyes = eyeStrings[eyeIndex];
+                updateSkinTimer.interval = eyeIntervals[eyeIndex];
             }
-            updateTimer.start();
+            updateSkinTimer.start();
         }
     }
 
@@ -103,11 +140,12 @@ CoverBackground
 
         CoverAction
         {
-            iconSource: "image://theme/icon-l-left"
+            iconSource: "image://theme/icon-cover-previous"
             onTriggered:
             {
                 moveOut = true;
-                transitionStep = 0;
+                currentStep = 0;
+                updateSkinTimer.interval = 100;
             }
         }
     }

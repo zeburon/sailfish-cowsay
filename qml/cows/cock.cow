@@ -2,7 +2,7 @@ $the_cow = <<"EOC";
     $thoughts
      $thoughts  /\\/\\
        \\   /
-       |  0 >>
+       |  $eye >>
        |___|
  __((_<|   |
 (          |

@@ -27,7 +27,7 @@ ApplicationWindow
 
     // -----------------------------------------------------------------------
 
-    cover: cover
+    cover: CoverPage { }
     initialPage: mainPage
 
     // -----------------------------------------------------------------------
@@ -69,10 +69,6 @@ ApplicationWindow
         }
     }
 
-    CoverPage
-    {
-        id: cover
-    }
     MainPage
     {
         id: mainPage
