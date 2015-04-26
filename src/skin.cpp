@@ -9,6 +9,7 @@ const QString Skin::START_OF_SKIN       = "$the_cow =";
 const QString Skin::END_OF_SKIN         = "EOC";
 const QString Skin::TAG_EYES1           = "$eyes";
 const QString Skin::TAG_EYES2           = "${eyes}";
+const QString Skin::TAG_SINGLE_EYE      = "$eye";
 const QString Skin::TAG_TONGUE1         = "$tongue";
 const QString Skin::TAG_TONGUE2         = "${tongue}";
 const QString Skin::TAG_THOUGHTS1       = "$thoughts";
@@ -196,6 +197,7 @@ QString Skin::getOutput() const
     QString result = m_skin_lines.join("");
     result.replace(TAG_EYES1, eyes_string);
     result.replace(TAG_EYES2, eyes_string);
+    result.replace(TAG_SINGLE_EYE, eyes_string.left(1));
     result.replace(TAG_TONGUE1, tongue_string);
     result.replace(TAG_TONGUE2, tongue_string);
     result.replace(TAG_THOUGHTS1, thoughts_string);
@@ -246,7 +248,7 @@ void Skin::updateCapabilities()
     bool supports_eyes = false, supports_tongue = false, supports_thinking = false;
     for (QStringList::const_iterator line_iter = m_skin_lines.begin(); line_iter != m_skin_lines.end(); ++line_iter)
     {
-        supports_eyes |= line_iter->contains(TAG_EYES1) || line_iter->contains(TAG_EYES2);
+        supports_eyes |= line_iter->contains(TAG_EYES1) || line_iter->contains(TAG_EYES2) || line_iter->contains(TAG_SINGLE_EYE);
         supports_tongue |= line_iter->contains(TAG_TONGUE1) || line_iter->contains(TAG_TONGUE2);
         supports_thinking |= line_iter->contains(TAG_THOUGHTS1) || line_iter->contains(TAG_THOUGHTS2);
     }

@@ -60,6 +60,7 @@ private:
     static const QString END_OF_SKIN;
     static const QString TAG_EYES1;
     static const QString TAG_EYES2;
+    static const QString TAG_SINGLE_EYE;
     static const QString TAG_TONGUE1;
     static const QString TAG_TONGUE2;
     static const QString TAG_THOUGHTS1;
