@@ -16,7 +16,8 @@ CONFIG += sailfishapp
 
 SOURCES += src/harbour-cowsay.cpp \
     src/skin.cpp \
-    src/exporter.cpp
+    src/exporter.cpp \
+    src/filelister.cpp
 
 OTHER_FILES += qml/harbour-cowsay.qml \
     qml/cover/CoverPage.qml \
@@ -99,5 +100,6 @@ TRANSLATIONS += translations/harbour-cowsay-de.ts
 
 HEADERS += \
     src/skin.h \
-    src/exporter.h
+    src/exporter.h \
+    src/filelister.h
 

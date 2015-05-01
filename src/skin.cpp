@@ -41,10 +41,10 @@ Skin::~Skin()
 void Skin::setFilename(const QString &filename)
 {
     QUrl url(filename);
-    QString localFilename = url.toLocalFile();
-    if (localFilename != m_filename)
+    QString local_filename = url.toLocalFile();
+    if (local_filename != m_filename)
     {
-        m_filename = localFilename;
+        m_filename = local_filename;
         emit signalFilenameChanged();
         readFromFile();
     }

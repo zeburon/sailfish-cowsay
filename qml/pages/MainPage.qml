@@ -12,8 +12,7 @@ Page
     // -----------------------------------------------------------------------
 
     property bool landscapeMode: orientation === Orientation.Landscape || orientation === Orientation.LandscapeInverted
-    property bool skinNamesApplied: skinNames.length > 0 && skinRepeater.count > 0
-    property bool enteringText: textField.focus
+    property alias enteringText: textField.focus
     property string lastImageFilename
 
     // -----------------------------------------------------------------------
@@ -22,15 +21,12 @@ Page
     {
         eyesComboBox.init();
         tongueComboBox.init();
+        skinComboBox.init();
     }
 
     // -----------------------------------------------------------------------
 
     allowedOrientations: Orientation.All
-    onSkinNamesAppliedChanged:
-    {
-        skinComboBox.init();
-    }
 
     // -----------------------------------------------------------------------
 
@@ -145,7 +141,8 @@ Page
                     }
                     onCurrentIndexChanged:
                     {
-                        settings.skin = value;
+                        if (initialized)
+                            settings.skin = value;
                     }
                 }
                 ComboBox

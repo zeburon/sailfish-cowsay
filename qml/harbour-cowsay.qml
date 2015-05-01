@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import Qt.labs.folderlistmodel 2.1
+import harbour.cowsay.FileLister 1.0
 
 import "components"
 import "cover"
@@ -20,9 +20,9 @@ ApplicationWindow
 
     // -----------------------------------------------------------------------
 
-    function resolveSkinFilename(str)
+    function resolveSkinFilename(name)
     {
-        return Qt.resolvedUrl(Globals.FOLDER_DIRECTORY + str + Globals.FILE_EXTENSION);
+        return Qt.resolvedUrl(Globals.FOLDER_DIRECTORY + name + Globals.FILE_EXTENSION);
     }
 
     // -----------------------------------------------------------------------
@@ -49,19 +49,18 @@ ApplicationWindow
 
         enteringText: mainPage.enteringText
     }
-    FolderListModel
+    FileLister
     {
-        id: folderListModel
+        id: fileLister
 
-        folder: Globals.FOLDER_DIRECTORY
-        nameFilters: ["*" + Globals.FILE_EXTENSION]
-        showDirs: false
-        onCountChanged:
+        folder: Qt.resolvedUrl(Globals.FOLDER_DIRECTORY)
+        filter: "*" + Globals.FILE_EXTENSION
+        onFilenamesChanged:
         {
             var newSkinNames = [];
-            for (var idx = 0; idx < count; ++idx)
+            for (var idx = 0; idx < filenames.length; ++idx)
             {
-                var filename = get(idx, "fileName");
+                var filename = filenames[idx];
                 var extensionStartPos = filename.lastIndexOf(Globals.FILE_EXTENSION);
                 newSkinNames.push(filename.substring(0, extensionStartPos));
             }
