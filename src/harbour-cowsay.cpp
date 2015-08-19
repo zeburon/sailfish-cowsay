@@ -7,6 +7,8 @@
 #include "filelister.h"
 #include "skin.h"
 
+// -----------------------------------------------------------------------
+
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Skin>("harbour.cowsay.Skin", 1, 0, "Skin");

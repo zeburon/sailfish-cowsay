@@ -14,7 +14,6 @@ FileLister::FileLister(QObject *parent) :
 
 FileLister::~FileLister()
 {
-
 }
 
 // -----------------------------------------------------------------------
@@ -47,7 +46,6 @@ void FileLister::updateFilenames()
 {
     QUrl url(m_folder);
     QString local_filename = url.toLocalFile();
-
     QDir dir(local_filename, m_filter, QDir::Name, QDir::Files);
     QStringList filenames = dir.entryList();
     if (filenames != m_filenames)

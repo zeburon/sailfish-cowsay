@@ -60,12 +60,12 @@ QtObject
     }
 
     // -----------------------------------------------------------------------
+
     onEnteringTextChanged:
     {
         if (!enteringText)
             Storage.setValue(textKey, text);
     }
-
     onThinkingChanged:
     {
         Storage.setValue(thinkingKey, thinking);
