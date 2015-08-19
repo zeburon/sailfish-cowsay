@@ -106,14 +106,6 @@ Artistic License or the GNU General Public License</source>
         <translation>Text eingeben...</translation>
     </message>
     <message>
-        <source>Cowthink</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Cowsay</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Switch to</source>
         <translation>Wechseln zu</translation>
     </message>
@@ -124,6 +116,18 @@ Artistic License or the GNU General Public License</source>
     <message>
         <source>Text copied to clipboard</source>
         <translation>Text in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>Cowthink</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cowsay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monospaced font required!</source>
+        <translation>Monospace-Schriftart benötigt!</translation>
     </message>
 </context>
 <context>

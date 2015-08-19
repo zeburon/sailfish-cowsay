@@ -277,11 +277,24 @@ Page
                 color: Theme.primaryColor
                 text: qsTr("Text copied to clipboard")
 
+                Text
+                {
+                    id: clipboardFontInfoText
+
+                    anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter; verticalCenterOffset: Theme.paddingLarge * 1.5 }
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font { family: Theme.fontFamily; pixelSize: Theme.fontSizeTiny; italic: true }
+                    color: Theme.secondaryColor
+                    text: qsTr("Monospaced font required!")
+                }
                 Behavior on opacity
                 {
-                    NumberAnimation { easing.type: Easing.InOutQuart; duration: 500 }
+                    NumberAnimation { easing.type: Easing.InOutQuart; duration: 750 }
                 }
             }
+
             Timer
             {
                 id: clipboardTimer

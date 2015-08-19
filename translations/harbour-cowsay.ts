@@ -44,18 +44,6 @@ Artistic License or the GNU General Public License</source>
 <context>
     <name>MainPage</name>
     <message>
-        <source>none</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>left</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>right</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>About</source>
         <translation></translation>
     </message>
@@ -68,7 +56,7 @@ Artistic License or the GNU General Public License</source>
         <translation></translation>
     </message>
     <message>
-        <source>Enter text...</source>
+        <source>Switch to</source>
         <translation></translation>
     </message>
     <message>
@@ -80,7 +68,15 @@ Artistic License or the GNU General Public License</source>
         <translation></translation>
     </message>
     <message>
-        <source>Switch to</source>
+        <source>none</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>left</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>right</source>
         <translation></translation>
     </message>
     <message>
@@ -89,6 +85,14 @@ Artistic License or the GNU General Public License</source>
     </message>
     <message>
         <source>Text copied to clipboard</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Monospaced font required!</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Enter text...</source>
         <translation></translation>
     </message>
 </context>
