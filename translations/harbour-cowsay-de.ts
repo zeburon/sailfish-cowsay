@@ -42,32 +42,6 @@ Artistic License or the GNU General Public License</source>
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>My Cover</source>
-        <translation type="vanished">Mein Cover</translation>
-    </message>
-    <message>
-        <source>Moo!</source>
-        <translation type="vanished">Muh!</translation>
-    </message>
-</context>
-<context>
-    <name>FirstPage</name>
-    <message>
-        <source>Show Page 2</source>
-        <translation type="vanished">Zur Seite 2</translation>
-    </message>
-    <message>
-        <source>UI Template</source>
-        <translation type="vanished">UI-Vorlage</translation>
-    </message>
-    <message>
-        <source>Hello Sailors</source>
-        <translation type="vanished">Hallo Matrosen</translation>
-    </message>
-</context>
-<context>
     <name>MainPage</name>
     <message>
         <source>none</source>
@@ -84,14 +58,6 @@ Artistic License or the GNU General Public License</source>
     <message>
         <source>About</source>
         <translation>Über</translation>
-    </message>
-    <message>
-        <source>Switch to Cowthink</source>
-        <translation type="vanished">Wechseln zu Cowthink</translation>
-    </message>
-    <message>
-        <source>Switch to Cowsay</source>
-        <translation type="vanished">Wechseln zu Cowsay</translation>
     </message>
     <message>
         <source>Copy text</source>
@@ -128,17 +94,6 @@ Artistic License or the GNU General Public License</source>
     <message>
         <source>Monospaced font required!</source>
         <translation>Monospace-Schriftart benötigt!</translation>
-    </message>
-</context>
-<context>
-    <name>SecondPage</name>
-    <message>
-        <source>Nested Page</source>
-        <translation type="vanished">Unterseite</translation>
-    </message>
-    <message>
-        <source>Item</source>
-        <translation type="vanished">Element</translation>
     </message>
 </context>
 </TS>
