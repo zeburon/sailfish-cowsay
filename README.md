@@ -1,6 +1,8 @@
 Cowsay for Sailfish OS
 ===========================
 
+<img src="qml/gfx/about.png"/>
+
 Port of the original command line application "cowsay" written by Tony Monroe.
 
 License
