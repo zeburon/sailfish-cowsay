@@ -1,4 +1,4 @@
-var VERSION           = "1.2";
+var VERSION           = "1.2.1";
 var EYES              = ["oo", "--", "..", "XX", "$$", "@@"];
 var TONGUES           = ["  ", "U ", " U"];
 var FOLDER_DIRECTORY  = "cows/";
