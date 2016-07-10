@@ -14,12 +14,25 @@ TARGET = harbour-cowsay
 
 CONFIG += sailfishapp
 
-SOURCES += src/harbour-cowsay.cpp \
+# to disable building translations every time, comment out the
+# following CONFIG line
+CONFIG += sailfishapp_i18n
+
+TRANSLATIONS += translations/harbour-cowsay-de.ts
+
+HEADERS += \
+    src/skin.h \
+    src/exporter.h \
+    src/filelister.h
+
+SOURCES += \
+    src/harbour-cowsay.cpp \
     src/skin.cpp \
     src/exporter.cpp \
     src/filelister.cpp
 
-OTHER_FILES += qml/harbour-cowsay.qml \
+OTHER_FILES += \
+    qml/harbour-cowsay.qml \
     qml/cover/CoverPage.qml \
     rpm/harbour-cowsay.changes.in \
     rpm/harbour-cowsay.spec \
@@ -88,18 +101,4 @@ OTHER_FILES += qml/harbour-cowsay.qml \
     qml/cows/.cover_cow2.cow \
     qml/cows/.cover_cow1.cow
 
-# to disable building translations every time, comment out the
-# following CONFIG line
-CONFIG += sailfishapp_i18n
-
-# German translation is enabled as an example. If you aren't
-# planning to localize your app, remember to comment out the
-# following TRANSLATIONS line. And also do not forget to
-# modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/harbour-cowsay-de.ts
-
-HEADERS += \
-    src/skin.h \
-    src/exporter.h \
-    src/filelister.h
-
+SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
